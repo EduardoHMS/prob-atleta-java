@@ -11,9 +11,16 @@ public class alteta {
 		boolean boleanAtleta, boleanSexo;
 		boleanAtleta = true;
 		boleanSexo = true;
-		String nome;
+		String nome, nomeAlto;
+		nomeAlto = " ";
 		char sexo, respAtleta;
-		double altura, peso;
+		double altura, peso, pesoMedio, alturaMedia, percentual, contadorPessoas, contadorF, contadorM, guardar;
+		alturaMedia = 0;
+		pesoMedio = 0;
+		contadorPessoas = 0;
+		contadorF = 0;
+		contadorM = 0;
+		guardar = 0;
 		
 		while(boleanAtleta) {
 			 
@@ -22,13 +29,27 @@ public class alteta {
 			 nome = sc.nextLine();
 			 
 			// Entrada do sexo //
+			 System.out.println("Sexo: ");
+			 sexo = sc.next().charAt(0);
+			 sexo = Character.toLowerCase(sexo);
+			 if(sexo == 'f') {
+				 contadorF = contadorF + 1;
+				 boleanSexo = false;
+			 }else if(sexo == 'm') {
+				 contadorM = contadorM + 1;
+				 boleanSexo = false;
+			 }else {
+				 boleanSexo = true;
+			 }
 			 while(boleanSexo) {
-				 System.out.println("Sexo: ");
+				 System.out.println("Sexo precisa ser F ou M. Tente novamente: ");
 				 sexo = sc.next().charAt(0);
 				 sexo = Character.toLowerCase(sexo);
 				 if(sexo == 'f') {
+					 contadorF = contadorF + 1;
 					 boleanSexo = false;
 				 }else if(sexo == 'm') {
+					 contadorM = contadorM + 1;
 					 boleanSexo = false;
 				 }else {
 					 boleanSexo = true;
@@ -60,8 +81,32 @@ public class alteta {
 				 boleanAtleta = false;
 			 }
 			 
+			 contadorPessoas =  contadorPessoas + 1;
+			 // Contadores do relatório //
+			 pesoMedio = pesoMedio + peso;
+			 
+			 if(sexo == 'f') {
+				 alturaMedia = alturaMedia + altura;
+			 }
+			 if(guardar < altura) {
+				 guardar = altura;
+				 nomeAlto = nome;
+			 }
+			 
 			 sc.nextLine();
 		 }
+
+		System.out.println(" ");
+		System.out.println("RELATÓRIO");
+		pesoMedio = pesoMedio / contadorPessoas;
+		System.out.printf("Peso médio dos atletas: %.2f%n", pesoMedio);
+		System.out.println("Atleta mais alto: " + nomeAlto);
+		percentual = contadorM / contadorPessoas;
+		percentual = percentual * 100;
+		System.out.printf("Porcentagem de homens: %.1f %% %n", percentual);
+		alturaMedia = alturaMedia / contadorF;
+		System.out.println("Altura média das mulheres: " + alturaMedia);
+		
 		sc.close();
 	}
 
